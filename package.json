@@ -1,0 +1,24 @@
+{
+  "name": "@devloom/hooks",
+  "version": "1.0.0",
+  "description": "Reusable React hooks for frontend development (JS & TS support)",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "scripts": {
+    "build": "tsc && npm run build:esm && npm run build:cjs",
+    "prepublishOnly": "npm run build",
+    "build:esm": "tsc --outDir dist/esm --module ESNext",
+    "build:cjs": "tsc --outDir dist/cjs --module CommonJS"
+  },
+  "keywords": ["react", "hooks", "typescript", "frontend", "ui"],
+  "author": "Your Name",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "@types/react": "^18.0.0"
+  }
+}
