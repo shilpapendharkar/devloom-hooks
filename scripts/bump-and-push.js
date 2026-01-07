@@ -1,0 +1,16 @@
+const fs = require('fs');
+const cp = require('child_process');
+const pkgPath = 'package.json';
+const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+const parts = pkg.version.split('.').map(Number);
+parts[2] = (parts[2] || 0) + 1;
+const v = parts.join('.');
+pkg.version = v;
+fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+console.log('Bumped version to', v);
+cp.execSync('git add package.json', { stdio: 'inherit' });
+cp.execSync('git commit -m "chore: release ' + v + '"', { stdio: 'inherit' });
+cp.execSync('git tag v' + v, { stdio: 'inherit' });
+cp.execSync('git push origin main', { stdio: 'inherit' });
+cp.execSync('git push origin --tags', { stdio: 'inherit' });
+console.log('Pushed commit and tags to origin');
